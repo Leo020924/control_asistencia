@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - Control de Asistencia</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Para gráficos -->
 
     <style>
@@ -17,7 +19,6 @@
             display: flex;
         }
 
-        /* Sidebar */
         .sidebar {
             width: 250px;
             background-color: #2575fc;
@@ -47,7 +48,6 @@
             background-color: #6a11cb;
         }
 
-        /* Estilos para la barra de navegación superior */
         .navbar {
             background-color: #2575fc;
             padding: 15px 30px;
@@ -56,7 +56,7 @@
             justify-content: space-between;
             align-items: center;
             width: 100%;
-            margin-left: 250px; /* Desplazar el contenido principal para no tapar el sidebar */
+            margin-left: 250px;
         }
 
         .navbar h1 {
@@ -73,9 +73,8 @@
             font-weight: bold;
         }
 
-        /* Contenido principal */
         .main-content {
-            margin-left: 250px; /* Asegurarse de que el contenido no se solape con el sidebar */
+            margin-left: 250px;
             width: 100%;
             padding: 20px;
         }
@@ -166,72 +165,48 @@
             background-color: #6a11cb;
         }
 
+        .sidebar a i {
+            margin-right: 8px;
+            font-size: 18px;
+            color: #333;
+           
+        }
     </style>
 </head>
+
 <body>
 
-    <!-- Sidebar -->
-    <div class="sidebar">
-        <h3>Menú</h3>
-        <a href="#">Inicio</a>
-        <a href="#">Registro de Asistencia</a>
-        <a href="#">Ver informes</a>
-        <a href="#">Configuración</a>
-        <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-            Cerrar sesión
-        </a>
-        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-            @csrf
-        </form>
-    </div>
-
-    <!-- Main Content -->
-    <div class="main-content">
     
+    @include('menu') 
 
-        <!-- Dashboard content -->
+    <div class="main-content">
+
         <div class="dashboard-container">
             <div class="welcome-message">
                 Bienvenido, {{ auth()->user()->name }}.
             </div>
 
-            <!-- Estadísticas -->
             <div class="stats-container">
-                <!-- Estadística 1: Total de asistencia -->
                 <div class="stat-card">
-                    <h3>Asistencia Total</h3>
-                    <p>350 hrs</p>
-                </div>
-                
-                <!-- Estadística 2: Asistencia este mes -->
-                <div class="stat-card">
-                    <h3>Asistencia este mes</h3>
-                    <p>30 hrs</p>
+                    <h3> Registro de Asistencia</h3>
+                    <h4>Sin Tipo de Horario Asignado</h4>
                 </div>
 
-                <!-- Estadística 3: Porcentaje de asistencia -->
                 <div class="stat-card">
-                    <h3>Asistencia</h3>
-                    <p>98%</p>
+                    <h3>Lista de Actividades</h3>
+
+                </div>
+
+                <div class="stat-card">
+                    <h3>Noticias</h3>
+                    <h4>Sin Noticias</h4>
                 </div>
             </div>
 
-            
-
-            <!-- Acciones rápidas -->
-            <div class="actions">
-                <h2>Acciones rápidas</h2>
-                <ul>
-                    <li><a href="#">Ver registro de asistencia</a></li>
-                    <li><a href="#">Agregar nueva entrada de asistencia</a></li>
-                    <li><a href="#">Ver informes</a></li>
-                </ul>
-            </div>
         </div>
     </div>
 
     <script>
-        // Gráfico de asistencia mensual usando Chart.js
         var ctx = document.getElementById('attendanceChart').getContext('2d');
         var attendanceChart = new Chart(ctx, {
             type: 'line',
@@ -239,7 +214,8 @@
                 labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
                 datasets: [{
                     label: 'Horas de Asistencia',
-                    data: [25, 30, 28, 35, 40, 32, 45, 50, 37, 42, 48, 52], // Datos de horas de asistencia por mes
+                    data: [25, 30, 28, 35, 40, 32, 45, 50, 37, 42, 48,
+                    52], 
                     borderColor: '#2575fc',
                     backgroundColor: 'rgba(37, 117, 252, 0.2)',
                     fill: true
@@ -257,4 +233,5 @@
     </script>
 
 </body>
+
 </html>
